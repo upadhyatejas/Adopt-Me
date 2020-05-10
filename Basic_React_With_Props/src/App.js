@@ -1,4 +1,6 @@
 //react code in a separate class
+import React from "react";
+import ReactDOM from "react-dom";
 const Pet = ({ name, animal, breed, age }) => {
   return React.createElement("div", {}, [
     React.createElement("h1", {}, name),
@@ -9,6 +11,7 @@ const Pet = ({ name, animal, breed, age }) => {
 };
 const App = () => {
   return React.createElement("div", { id: "something-is-up" }, [
+    React.createElement("h1", { id: "Adopt-Me" }, "Adopt-Me"),
     React.createElement("h1", { id: "Adopt-Me" }, "Adopt-Me"),
     React.createElement(Pet, {
       name: "Luna",
