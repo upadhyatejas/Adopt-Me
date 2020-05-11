@@ -1,37 +1,17 @@
 //react code in a separate class
 import React from "react";
 import ReactDOM from "react-dom";
-const Pet = ({ name, animal, breed, age }) => {
-  return React.createElement("div", {}, [
-    React.createElement("h1", {}, name),
-    React.createElement("h2", {}, animal),
-    React.createElement("h3", {}, breed),
-    React.createElement("h3", {}, age),
-  ]);
-};
+import Pet from "./Pet";
+
 const App = () => {
-  return React.createElement("div", { id: "something-is-up" }, [
-    React.createElement("h1", { id: "Adopt-Me" }, "Adopt-Me"),
-    React.createElement("h1", { id: "Adopt-Me" }, "Adopt-Me"),
-    React.createElement(Pet, {
-      name: "Luna",
-      animal: "Dog",
-      breed: "havanese",
-      age: "3",
-    }),
-    React.createElement(Pet, {
-      name: "Pepper",
-      animal: "Bird",
-      breed: "cockatiel",
-      age: "4",
-    }),
-    React.createElement(Pet, {
-      name: "Doink",
-      animal: "Cat",
-      breed: "Persian",
-      age: "7",
-    }),
-  ]);
+  return (
+    <div>
+      <h1 id="something-important">Adopt-Me</h1>
+      <Pet name="luna" animal="dog" breed="havanese" age="11" />
+      <Pet name="cheddar" animal="dog" breed="shiba-inu" age="6" />
+      <Pet name="doink" animal="cat" breed="mixed" age="5" />
+    </div>
+  );
 };
 
 ReactDOM.render(React.createElement(App), document.getElementById("root"));
