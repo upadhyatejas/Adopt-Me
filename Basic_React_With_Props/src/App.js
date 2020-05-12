@@ -4,6 +4,8 @@ import ReactDOM from "react-dom";
 import Pet from "./Pet";
 
 const App = () => {
+  var jsonData = require('./pzn.json');
+  console.log(jsonData);
   return (
     <div>
       <h1 id="something-important">Adopt-Me</h1>
