@@ -1,4 +1,5 @@
 //react code in a separate class
+import { ANIMALS } from "@frontendmasters/pet";
 import React from "react";
 import ReactDOM from "react-dom";
 import SearchParams from "./SeachParams";
@@ -10,6 +11,7 @@ const App = () => {
     <div>
       <h1 id="something-important">Adopt-Me</h1>
       <SearchParams />
+      {ANIMALS}
     </div>
   );
 };
