@@ -5,13 +5,12 @@ import ReactDOM from "react-dom";
 import SearchParams from "./SeachParams";
 
 const App = () => {
-  var jsonData = require('./pzn.json');
+  var jsonData = require("./pzn.json");
   console.log(jsonData);
   return (
     <div>
       <h1 id="something-important">Adopt-Me</h1>
       <SearchParams />
-      {ANIMALS}
     </div>
   );
 };
