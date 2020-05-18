@@ -29999,7 +29999,7 @@ var useDropdown = function useDropdown(label, defaultState, options) {
     }, label, /*#__PURE__*/_react.default.createElement("select", {
       id: id,
       value: state,
-      onchange: function onchange(e) {
+      onChange: function onChange(e) {
         return setState(e.target.value);
       },
       onBlur: function onBlur(e) {
@@ -30027,7 +30027,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _pet = require("@frontendmasters/pet");
+var _pet = _interopRequireWildcard(require("@frontendmasters/pet"));
 
 var _react = _interopRequireWildcard(require("react"));
 
@@ -30067,11 +30067,26 @@ var SearchParams = function SearchParams() {
       animal = _useDropdown2[0],
       AnimalDropdown = _useDropdown2[1];
 
-  var _useDropdown3 = (0, _useDropdown5.default)("breed", "", breeds),
-      _useDropdown4 = _slicedToArray(_useDropdown3, 2),
+  var _useDropdown3 = (0, _useDropdown5.default)("Breed", "", breeds),
+      _useDropdown4 = _slicedToArray(_useDropdown3, 3),
       breed = _useDropdown4[0],
-      BreedDropdown = _useDropdown4[1];
+      BreedDropdown = _useDropdown4[1],
+      setBreed = _useDropdown4[2];
 
+  (0, _react.useEffect)(function () {
+    setBreeds([]);
+    setBreed("");
+
+    _pet.default.breeds(animal).then(function (_ref) {
+      var breeds = _ref.breeds;
+      var breedStrings = breeds.map(function (_ref2) {
+        var name = _ref2.name;
+        return name;
+      });
+      console.log(breedStrings);
+      setBreeds(breedStrings);
+    }, console.error);
+  }, [animal, setBreed, setBreeds]);
   return /*#__PURE__*/_react.default.createElement("div", {
     className: "search-params"
   }, /*#__PURE__*/_react.default.createElement("form", null, /*#__PURE__*/_react.default.createElement("label", {
@@ -30399,7 +30414,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49660" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62793" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
