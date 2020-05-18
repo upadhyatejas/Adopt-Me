@@ -30076,6 +30076,7 @@ var SearchParams = function SearchParams() {
   (0, _react.useEffect)(function () {
     setBreeds([]);
     setBreed("");
+    console.log("in use effect");
 
     _pet.default.breeds(animal).then(function (_ref) {
       var breeds = _ref.breeds;

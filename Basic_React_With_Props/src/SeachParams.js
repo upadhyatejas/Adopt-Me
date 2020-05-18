@@ -11,6 +11,7 @@ const SearchParams = () => {
   useEffect(() => {
     setBreeds([]);
     setBreed("");
+    console.log("in use effect");
     pet.breeds(animal).then(({ breeds }) => {
       const breedStrings = breeds.map(({ name }) => name);
       console.log(breedStrings);
