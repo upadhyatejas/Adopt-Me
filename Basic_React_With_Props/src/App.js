@@ -5,8 +5,7 @@ import ReactDOM from "react-dom";
 import SearchParams from "./SeachParams";
 
 const App = () => {
-  var jsonData = require("./pzn.json");
-  console.log(jsonData);
+  console.log("hello world");
   return (
     <div>
       <h1 id="something-important">Adopt-Me</h1>
