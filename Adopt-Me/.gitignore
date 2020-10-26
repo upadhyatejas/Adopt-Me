@@ -1,0 +1,10 @@
+node_modules/
+logs/
+.cache/
+dist/
+covergae/
+.vscode/
+.env
+
+#macos files
+.DS_Store
