@@ -5,7 +5,7 @@
   "description": "",
   "main": "App.js",
   "scripts": {
-    "predeploy":"npm run dev",
+    "predeploy":"npm run build",
     "deploy":"gh-pages -d build",
     "dev": "parcel src/index.html",
     "dev:mock": "cross-env PET_MOCK=mock npm run dev",
