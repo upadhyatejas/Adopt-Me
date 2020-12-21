@@ -7,6 +7,9 @@
   "scripts": {
     "predeploy":"npm run build",
     "deploy":"gh-pages -d build",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "eject":"react-scripts eject",
     "dev": "parcel src/index.html",
     "dev:mock": "cross-env PET_MOCK=mock npm run dev",
     "lint": "eslint \"src/**/*.{js,jsx}\" --quiet",
