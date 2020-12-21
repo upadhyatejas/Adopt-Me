@@ -1,9 +1,12 @@
 {
+  "homepage":"https://upadhyatejas.github.io/FrontEnd-Masters-React",
   "name": "adopt-me",
   "version": "1.0.0",
   "description": "",
   "main": "App.js",
   "scripts": {
+    "predeploy":"npm run dev",
+    "deploy":"gh-pages -d build",
     "dev": "parcel src/index.html",
     "dev:mock": "cross-env PET_MOCK=mock npm run dev",
     "lint": "eslint \"src/**/*.{js,jsx}\" --quiet",
