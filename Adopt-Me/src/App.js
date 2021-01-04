@@ -8,7 +8,6 @@ import Routerinfo from "./Routerinfo";
 
 const App = () => {
   return (
-    <React.StrictMode>
       <div>
         <header>
           <Link to="/">Adopt Me!</Link>
@@ -19,7 +18,6 @@ const App = () => {
           <Routerinfo path="/routerinfo/" />
         </Router>
       </div>
-    </React.StrictMode>
   );
 };
 
