@@ -3,13 +3,13 @@ import React from "react";
 class Carousel extends React.Component {
   state = {
     photos: [],
-    active: 0
+    active: 0,
   };
 
   static getDerivedStateFromProps({ media }) {
-    let photos = ['http://placecorgi.com/600/600'];
+    let photos = ["http://placecorgi.com/600/600"];
 
-    if(media.length){
+    if (media.length) {
       photos = media.map(({ large }) => large);
       console.log(`photos array`);
       console.log(photos);
@@ -17,9 +17,9 @@ class Carousel extends React.Component {
     return { photos };
   }
 
-  handleIndexClick = event => {
+  handleIndexClick = (event) => {
     this.setState({
-      active: +event.target.dataset.index
+      active: +event.target.dataset.index,
     });
   };
   render() {

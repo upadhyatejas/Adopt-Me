@@ -5,7 +5,7 @@ import SearchParams from "./SeachParams";
 import { Link, Router } from "@reach/router";
 import Details from "./Details";
 import Routerinfo from "./Routerinfo";
-import ThemeContext from './ThemeContext';
+import ThemeContext from "./ThemeContext";
 
 const App = () => {
   const themeHook = useState("peru");
