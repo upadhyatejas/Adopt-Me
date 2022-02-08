@@ -1,7 +1,7 @@
 import React from "react";
 import pet from "@frontendmasters/pet";
 import { navigate } from "@reach/router";
-import Modal from "./Modal";
+import Modal from "./modal.js";
 import Carousel from "./Carousel.js";
 import ErrorBoundary from "./ErrorBoundary.js";
 import ThemeContext from "./ThemeContext";
