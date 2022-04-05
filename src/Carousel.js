@@ -1,21 +1,17 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React from "react";
 
 class Carousel extends React.Component {
-  state = {
-    photos: [],
-    active: 0,
-  };
-
-  static getDerivedStateFromProps({ media }) {
-    let photos = ["http://placecorgi.com/600/600"];
-
-    if (media.length) {
-      photos = media.map(({ large }) => large);
-      console.log(`photos array`);
-      console.log(photos);
-    }
-    return { photos };
+  constructor(props) {
+    super(props);
+    this.state = {
+      active: 0,
+    };
   }
+
+  static defaultProps = {
+    images: ["http://pets-images.dev-apis.com/pets/none.jpg"],
+  };
 
   handleIndexClick = (event) => {
     this.setState({
@@ -23,20 +19,19 @@ class Carousel extends React.Component {
     });
   };
   render() {
-    const { photos, active } = this.state;
-
+    const { active } = this.state;
+    const { images } = this.props;
     return (
       <div className="carousel">
-        {console.log(`in carousel`)}
-        <img src={photos[active]} alt="http://placecorgi.com/300/300" />
+        <img src={images[active]} alt="animal" />
         <div className="carousel-smaller">
-          {photos.map((photo, index) => (
-            // eslint-disable-next-line
+          {images.map((photos, index) => (
             <img
-              key={photo}
-              onClick={this.handleIndexClick}
+              key={photos}
+              src={photos}
               data-index={index}
-              src={photo}
+              onClick={this.handleIndexClick}
+              onKeyDown={this.handleIndexClick}
               className={index === active ? "active" : ""}
               alt="animal thumbnail"
             />
@@ -46,4 +41,5 @@ class Carousel extends React.Component {
     );
   }
 }
+
 export default Carousel;
