@@ -1,30 +1,34 @@
-//react code in a separate class
-import React, { useState } from "react";
-import ReactDOM from "react-dom";
+import React, { useState, useRef, useEffect } from "react";
+import { render } from "react-dom";
+import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import SearchParams from "./SeachParams";
-import { Link, Router } from "@reach/router";
 import Details from "./Details";
-import Routerinfo from "./Routerinfo";
 import ThemeContext from "./ThemeContext";
-
 const App = () => {
-  const themeHook = useState("peru");
+  const theme = useState("darkblue");
+
   return (
-    <ThemeContext.Provider value={themeHook}>
-      {console.log("the theme hook is given by")}
-      {console.log(themeHook)}
+    <ThemeContext.Provider value={theme}>
       <div>
-        <header>
-          <Link to="/">Adopt Me!</Link>
-        </header>
         <Router>
-          <SearchParams path="/" />
-          <Details path="/details/:id" />
-          <Routerinfo path="/routerinfo/" />
+          <header>
+            <Link to="/">
+              <h1>Adopt Me!</h1>
+            </Link>
+          </header>
+          <Routes>
+            <Route path="/details/:id" element={<Details />} />
+            <Route path="/" element={<SearchParams />} />
+          </Routes>
         </Router>
       </div>
     </ThemeContext.Provider>
   );
 };
 
-ReactDOM.render(<App />, document.getElementById("root"));
+render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+  document.getElementById("root")
+);
