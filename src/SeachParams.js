@@ -1,37 +1,38 @@
-import pet, { ANIMALS } from "@frontendmasters/pet";
-import React, { useState, useEffect, useContext } from "react";
-import Results from "./Results";
-import useDropdown from "./useDropdown";
+import { useEffect, useState, useContext } from "react";
 import ThemeContext from "./ThemeContext";
+import useBreedList from "./useBreedList";
+import Results from "./Results";
+import Details from "./Details";
+
+const ANIMALS = ["bird", "cat", "dog", "rabbit", "reptile"];
 
 const SearchParams = () => {
-  const [location, setLocation] = useState("Seattle, WA");
-  const [breeds, setBreeds] = useState([]);
-  const [animal, AnimalDropdown] = useDropdown("Animal", "dog", ANIMALS);
-  const [breed, BreedDropdown, setBreed] = useDropdown("Breed", "", breeds);
+  const [animal, updateAnimal] = useState("");
+  const [location, updateLocation] = useState("");
+  const [breed, updateBreed] = useState("");
   const [pets, setPets] = useState([]);
+  const [breeds] = useBreedList(animal);
   const [theme, setTheme] = useContext(ThemeContext);
-  async function requestPets() {
-    const { animals, pagination } = await pet.animals({
-      location: location,
-      breed: breed,
-      type: animal,
-    });
-
-    setPets(animals || []);
-    console.log(animals);
-    console.log(pagination);
-  }
 
   useEffect(() => {
-    setBreeds([]);
-    setBreed("");
-    pet.breeds(animal).then(({ breeds }) => {
-      const breedStrings = breeds.map(({ name }) => name);
-      setBreeds(breedStrings);
-      // eslint-disable-next-line no-console
-    }, console.error);
-  }, [animal, setBreed, setBreeds]);
+    requestPets();
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // useEffect(() => {
+  //   const timer = setTimeout(() => {
+  //     alert("Sorry, no pets were found.");
+  //   }, 3000);
+  //   return () => clearTimeout(timer);
+  // }, [animal]);
+
+  async function requestPets() {
+    const res = await fetch(
+      `http://pets-v2.dev-apis.com/pets?animal=${animal}&location=${location}&breed=${breed}`
+    );
+    const json = await res.json();
+
+    setPets(json.pets);
+  }
 
   return (
     <div className="search-params">
@@ -47,12 +48,42 @@ const SearchParams = () => {
             id="location"
             value={location}
             placeholder="Location"
-            onChange={(e) => setLocation(e.target.value)}
-            onBlur={(e) => setLocation(e.target.value)}
-          ></input>
+            onChange={(e) => updateLocation(e.target.value)}
+          />
         </label>
-        <AnimalDropdown />
-        <BreedDropdown />
+        <label htmlFor="animal">
+          Animal
+          <select
+            id="animal"
+            value={animal}
+            onChange={(e) => updateAnimal(e.target.value)}
+            onBlur={(e) => updateAnimal(e.target.value)}
+          >
+            <option />
+            {ANIMALS.map((animal) => (
+              <option key={animal} value={animal}>
+                {animal}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label htmlFor="breed">
+          Breed
+          <select
+            disabled={!breeds.length}
+            id="breed"
+            value={breed}
+            onChange={(e) => updateBreed(e.target.value)}
+            onBlur={(e) => updateBreed(e.target.value)}
+          >
+            <option />
+            {breeds.map((breed) => (
+              <option key={breed} value={breed}>
+                {breed}
+              </option>
+            ))}
+          </select>
+        </label>
         <label htmlFor="theme">
           Theme
           <select
@@ -61,11 +92,12 @@ const SearchParams = () => {
             onBlur={(e) => setTheme(e.target.value)}
           >
             <option value="peru">Peru</option>
-            <option value="darkblue">Darkblue</option>
+            <option value="darkblue">Dark Blue</option>
             <option value="mediumorchid">Medium Orchid</option>
+            <option value="chartreuse">Chartreuse</option>
           </select>
         </label>
-        <button style={{ backgroundColor: theme }}>Submit</button>
+        <button style={{ backgroundColor: theme }}>Yolo</button>
       </form>
       <Results pets={pets} />
     </div>
