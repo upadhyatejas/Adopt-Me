@@ -1,67 +1,83 @@
-import React from "react";
-import pet from "@frontendmasters/pet";
-import { navigate } from "@reach/router";
-import Modal from "./modal.js";
-import Carousel from "./Carousel.js";
-import ErrorBoundary from "./ErrorBoundary.js";
+import { Component } from "react";
+import withRouter from "./withRouter";
+import Carousel from "./Carousel";
+import ErrorBoundary from "./ErrorBoundary";
 import ThemeContext from "./ThemeContext";
+import Modal from "./modal";
 
-class Details extends React.Component {
-  state = { loading: true, showModal: false };
-  componentDidMount() {
-    pet.animal(this.props.id).then(({ animal }) => {
-      this.setState({
-        url: animal.url,
-        name: animal.name,
-        animal: animal.type,
-        location: `${animal.contact.address.city},
-                  ${animal.contact.address.state}`,
-        description: animal.description,
-        media: animal.photos,
-        breed: animal.breeds.primary,
-        loading: false,
-      });
-      // eslint-disable-next-line no-console
-    }, console.error);
+class Details extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      loading: true,
+      name: "",
+      animal: "",
+      breed: "",
+      description: "",
+      location: "",
+      id: "",
+      images: [],
+      showModal: false,
+    };
   }
-  toggleModal = () => this.setState({ showModal: !this.state.showModal });
-  adopt = () => navigate(this.state.url);
+
+  async componentDidMount() {
+    const res = await fetch(
+      `http://pets-v2.dev-apis.com/pets?id=${this.props.params.id}`
+    );
+    console.log(res);
+    const json = await res.json();
+    this.setState(
+      Object.assign(
+        {
+          loading: false,
+        },
+        json.pets[0]
+      )
+    );
+  }
+
+  toggleModal = () => {
+    this.setState({
+      showModal: !this.state.showModal,
+    });
+  };
+
+  adopt = () => {
+    window.location = "http://bit.ly/pet-adopt";
+  };
 
   render() {
+    const { showModal } = this.state;
     if (this.state.loading) {
-      return <h1>loading...</h1>;
+      return <h2>Loading</h2>;
     }
-
-    const { animal, breed, location, description, name, media, showModal } =
+    const { animal, breed, city, state, name, description, images } =
       this.state;
-
+    console.log(this.state);
     return (
       <div className="details">
-        {console.log(`before carousel`)}
-        <Carousel media={media} />
-        {console.log("after carousel")}
+        <Carousel images={images} />
         <div>
           <h1>{name}</h1>
-          <h2>{`${animal} - ${breed} - ${location}`}</h2>
+          <h2>{`${animal} - ${breed} - ${city}, ${state}`}</h2>
           <ThemeContext.Consumer>
-            {(themeHook) => (
+            {([theme]) => (
               <button
                 onClick={this.toggleModal}
-                style={{ backgroundColor: themeHook[0] }}
+                style={{ backgroundColor: theme }}
               >
-                Adopt {name}
+                Adopt {name}{" "}
               </button>
             )}
           </ThemeContext.Consumer>
           <p>{description}</p>
           {showModal ? (
             <Modal>
+              <h1>Would you like to adopt {name}?</h1>
               <div>
-                <h1>Would you like to adopt {name}?</h1>
-                <div className="buttons">
-                  <button onClick={this.adopt}>Yes</button>
-                  <button onClick={this.toggleModal}>No</button>
-                </div>
+                <button onClick={this.adopt}>Yes</button>
+                <button onClick={this.toggleModal}>No, I am a monster</button>
               </div>
             </Modal>
           ) : null}
@@ -71,10 +87,12 @@ class Details extends React.Component {
   }
 }
 
-export default function DetailsWithErrorBoundary(props) {
+const DetailsWithRouter = withRouter(Details);
+
+export default function DetailsWithErrorBoundary() {
   return (
     <ErrorBoundary>
-      <Details {...props} />
+      <DetailsWithRouter />
     </ErrorBoundary>
   );
 }
