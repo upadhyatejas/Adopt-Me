@@ -14,6 +14,7 @@ class Carousel extends React.Component {
   };
 
   handleIndexClick = (event) => {
+    //unary plus used in setstate to convert string to number
     this.setState({
       active: +event.target.dataset.index,
     });
