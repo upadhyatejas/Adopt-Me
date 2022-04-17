@@ -5,6 +5,7 @@ dist/
 covergae/
 .vscode/
 .env
+.parcel-cache/
 
 #macos files
 .DS_Store
