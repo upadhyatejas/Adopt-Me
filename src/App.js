@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState } from "react";
 import { render } from "react-dom";
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import SearchParams from "./SeachParams";
